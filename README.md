@@ -20,19 +20,19 @@
       npm run migration:generate
    ````
 
-5. run migration create table and ralation
+5. Run migration create table and ralation
    ```bash
       npm run migration:generate
     ````
 
 ## Build
-1. build app it genrate swager api documentaion
+1. Build app it genrate swager api documentaion
    ```bash
       npm run build
    ````
 
 ## API documentaion
-1. Accces api documention on http://localhost:4000/api and http://localhost:4000/api-json (for json file)
+1. Access api documentation on http://localhost:4000/api and http://localhost:4000/api-json (for json file)
 
 ## Unit testing
 
@@ -54,13 +54,13 @@
       npx jest src/transactions/products.service.spec.ts
    ````
 
-## build the app and DB on docker
+## Build and dockerize the app and DB
 1. Build and dockerize the app and DB
    ```bash
       docker compose build
    ```
 
-2. RUN app and db
+2. RUN app and DB
    ```bash
       docker compose up -d
    ```
