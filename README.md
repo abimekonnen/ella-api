@@ -53,6 +53,13 @@
       npx jest src/transactions/products.controller.spec.ts
       npx jest src/transactions/products.service.spec.ts
    ````
+## End-to-End testing
+
+1. Test end to end
+   ```bash
+      npm run test:e2e
+   ````
+
 
 ## Build and dockerize the app and DB
 1. Build and dockerize the app and DB
