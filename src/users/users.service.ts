@@ -99,7 +99,6 @@ export class UsersService {
       const user = await this.userRepository.preload({
         id: id,
         ...dto,
-        updatedAt: new Date(),
       });
 
       if (!user) {
@@ -114,6 +113,7 @@ export class UsersService {
         data: updatedUser,
       };
     } catch (error: unknown) {
+      if (error instanceof NotFoundException) throw error;
       if (
         error instanceof QueryFailedError &&
         (error as any).code === '23505'
@@ -121,11 +121,6 @@ export class UsersService {
         throw new ConflictException('Email already exists');
       }
 
-      if (error instanceof NotFoundException) {
-        throw error;
-      }
-
-      // Anything else is 500
       throw new HttpException(
         {
           statusCode: HttpStatus.INTERNAL_SERVER_ERROR,

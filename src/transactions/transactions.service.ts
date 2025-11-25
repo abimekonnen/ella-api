@@ -13,7 +13,6 @@ import { User } from '../users/entities/user.entity';
 import { Product } from '../products/entities/product.entity';
 import { ApiResponse, ProductStatus } from 'src/constants';
 
-
 @Injectable()
 export class TransactionsService {
   constructor(
@@ -41,11 +40,8 @@ export class TransactionsService {
           `Product with ID ${dto.productId} not found`,
         );
 
-
-      if (product.status !== 'FOR_SALE') {
-        throw new ConflictException(
-          `Product ${product.name} is not for sale`,
-        );
+      if (product.status !== ProductStatus.FOR_SALE) {
+        throw new ConflictException(`Product ${product.name} is not for sale`);
       }
 
       // Check quantity availability
@@ -79,17 +75,12 @@ export class TransactionsService {
         data: savedTransaction,
       };
     } catch (error: unknown) {
+      if (error instanceof NotFoundException || error instanceof ConflictException) throw error;
       if (error instanceof QueryFailedError) {
         throw new ConflictException(
           'Database error: ' + (error as any).message,
         );
       }
-      if (
-        error instanceof NotFoundException ||
-        error instanceof ConflictException
-      )
-        throw error;
-
       throw new HttpException(
         {
           statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -149,5 +140,4 @@ export class TransactionsService {
       );
     }
   }
-
 }

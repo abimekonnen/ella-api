@@ -133,7 +133,6 @@ describe('UsersService', () => {
         async (user) =>
           ({
             ...user,
-            updatedAt: new Date(), // simulate save updating updatedAt
           }) as User,
       );
 
@@ -143,7 +142,6 @@ describe('UsersService', () => {
         ...mockUser,
         ...dto,
         transactions: mockUser.transactions,
-        updatedAt: expect.any(Date), // don't compare exact date
       };
 
       expect(result.data).toEqual(expect.objectContaining(expectedUser));
@@ -151,7 +149,6 @@ describe('UsersService', () => {
       expect(repository.preload).toHaveBeenCalledWith({
         id: 1,
         ...dto,
-        updatedAt: expect.any(Date),
       });
       expect(repository.save).toHaveBeenCalled();
     });

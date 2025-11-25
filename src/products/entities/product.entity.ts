@@ -4,6 +4,7 @@ import {
   Column,
   OneToMany,
   UpdateDateColumn,
+  CreateDateColumn,
 } from 'typeorm';
 import { Transaction } from '../../transactions/entities/transaction.entity';
 
@@ -37,9 +38,9 @@ export class Product {
   @OneToMany(() => Transaction, (t) => t.product)
   transactions: Transaction[];
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @CreateDateColumn()
   createdAt: Date;
 
-  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @UpdateDateColumn()
   updatedAt: Date;
 }

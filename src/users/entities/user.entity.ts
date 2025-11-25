@@ -4,6 +4,7 @@ import {
   Column,
   OneToMany,
   UpdateDateColumn,
+  CreateDateColumn,
 } from 'typeorm';
 import { Transaction } from '../../transactions/entities/transaction.entity';
 
@@ -21,9 +22,9 @@ export class User {
   @OneToMany(() => Transaction, (t) => t.user)
   transactions: Transaction[];
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @CreateDateColumn()
   createdAt: Date;
 
-  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @UpdateDateColumn()
   updatedAt: Date;
 }

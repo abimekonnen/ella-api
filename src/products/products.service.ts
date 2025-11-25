@@ -111,7 +111,6 @@ export class ProductsService {
       product.price = dto.price ?? product.price;
       product.quantity = dto.quantity ?? product.quantity;
       product.status = dto.status ?? product.status;
-      product.updatedAt = new Date();
 
       const updatedProduct = await this.productRepository.save(product);
 
@@ -121,6 +120,7 @@ export class ProductsService {
         data: updatedProduct,
       };
     } catch (error: unknown) {
+      if (error instanceof NotFoundException) throw error;
       if (
         error instanceof QueryFailedError &&
         (error as any).code === '23505'
